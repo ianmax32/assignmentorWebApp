@@ -1,0 +1,23 @@
+.navbar-options{
+    position: absolute;
+    right: 0px;
+    width: 25%;
+    margin-top: 15px;
+}
+
+.profileimage{
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    border-radius: 50%;
+    
+}
+
+.profileimage:hover{
+    cursor: pointer;
+    
+}
+
+.profile{
+    border-radius: 50%;
+}

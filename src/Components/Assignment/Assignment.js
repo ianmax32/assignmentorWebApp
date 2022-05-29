@@ -13,7 +13,7 @@ const Assignment = (props)=>{
             
             <img src={props.type} className='card-img-top image' />
             <div className='info'>
-                <div className='card-body text-center bg-white font-black metadata'>
+                <div className='card-body text-center font-black metadata'>
                     <p className='card-text'>{props.name}</p>
                     <p className='card-text'>{props.date}</p>
                     

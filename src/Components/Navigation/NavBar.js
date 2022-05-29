@@ -50,12 +50,13 @@ export default function NavBar() {
                   <Link to='/Discussions' className="nav-link" href="#">Discussions</Link>
                   <Link to='/Resources' className="nav-link" href="#">Resources</Link>
                   
+                  <div className='navbar-nav navbar-options'>
+                    <p className='nav-link '>{assignments.length} Assignments Uploaded</p>
+                    <img src={defaultpic} alt='profile' className='profileimage m-2' onClick={changeImage}></img>
+                    <Link className='btn btn-outline-danger btn-sm logout m-2' to='/Login'>Logout</Link>
+                  </div>
               </div>
 
-              <div className='navbar-options navbar-nav'>
-                <p className='nav-link '>{assignments.length} Assignments Uploaded</p>
-                <img src={defaultpic} alt='profile' className='profileimage m-2' onClick={changeImage}></img>
-              </div>
             </div>
         </div>
     </nav>

@@ -12,21 +12,23 @@ export function AssignmentsProvider({children}){
     
     
 
-    function getAll(){
-        const user = JSON.parse(window.sessionStorage.getItem('person'))
-        console.log(user)
+    async function getAll(email){
+        console.log(email)
         const storage = getStorage();
-        const listRef = ref(storage, `${user.email}`);
+        const listRef = ref(storage, `${email}`);
 
-        listAll(listRef)
+        await listAll(listRef)
             .then((res) => {
                 res.items.forEach((itemRef) => {
                     setAssignemnts((prevstate)=>[...prevstate,itemRef])
                 });
+            }).then(()=>{
+                
             }).catch((error) => {
                 // Uh-oh, an error occurred!
         });
-
+        
+        console.log(JSON.parse(window.sessionStorage.getItem('uploads')))
     }
 
     function UploadAssignment(user,assign){
@@ -41,13 +43,20 @@ export function AssignmentsProvider({children}){
         })
     }
 
+    function upDateAssignments(uploads){
+        console.log('Updating assignments with: ',uploads)
+        setAssignemnts(
+            [uploads]
+        )
+       
+    }
 
     function DeleteAssignment(){
         
     }
 
     return(
-        <AssignmentsContext.Provider value={{assignments, UploadAssignment, assignment, getAll}}>
+        <AssignmentsContext.Provider value={{assignments, UploadAssignment, assignment, getAll, upDateAssignments, setAssignemnts}}>
             {children}
         </AssignmentsContext.Provider>
     )

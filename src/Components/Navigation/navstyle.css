@@ -1,8 +1,8 @@
 .navbar-options{
     position: absolute;
     right: 0px;
-    width: 25%;
-    margin-top: 15px;
+    width: 35%;
+    margin-top: 8px;
 }
 
 .profileimage{
@@ -20,4 +20,9 @@
 
 .profile{
     border-radius: 50%;
+}
+
+.logout{
+    width: fit-content;
+    height: fit-content;
 }

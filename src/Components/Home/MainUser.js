@@ -19,38 +19,51 @@ import AssignmentsContext from '../Services/AssignmentsContext';
 import { getStorage, ref, uploadBytes, listAll } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
+import { getAllByAltText } from '@testing-library/react';
 
 export default function MainUser() {
 
-  const {assignments,assignment, UploadAssignment, getAll}= useContext(AssignmentsContext);
+  const {assignments,assignment, UploadAssignment, upDateAssignments, getAll}= useContext(AssignmentsContext);
   const {user,LoggedIn,successLogin,isLoggedIn} = useContext(UserContext)
   const history = useHistory();
+  const {allAssignments, setAllAssignments} = useState(JSON.parse(window.sessionStorage.getItem('uploads')))
   const location = useLocation();
   var person ={}
   
- 
+  useEffect(()=>{
+
+    if(performance.navigation.type === performance.navigation.TYPE_RELOAD){
+      //handleReload()
+      //upDateAssignments(JSON.parse(window.sessionStorage.getItem('uploads')))
+      console.log('page reloaded')
+    }else{
+      window.history.pushState(null, document.title, window.location.href);
+      window.addEventListener('popstate', function(event) {
+        window.history.pushState(null, document.title, window.location.href);
+      });
+    }
+    
+    
+  },[])
 
   useEffect(()=>{
-    
-    //const auth = getAuth()
-    onAuthStateChanged(auth,(pers)=>{
-
-    })
-    
-    const logger = window.sessionStorage.getItem('person')
-    person = JSON.parse(window.sessionStorage.getItem('person'))
-    console.log(logger)
-    
-
-    
-    
-    window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener('popstate', function(event) {
-      window.history.pushState(null, document.title, window.location.href);
-    });
+    window.onbeforeunload=()=>{
+      window.sessionStorage.setItem('uploads',JSON.stringify(assignments))
+    }
   })
-       
-  
+
+  useEffect(()=>{
+    if(user ===null && JSON.parse(window.sessionStorage.getItem('uploads')) !== null){
+      upDateAssignments(JSON.parse(window.sessionStorage.getItem('uploads')))
+      console.log('current state after reload', assignments)
+    }
+  })
+
+  function handleReload(){
+    //console.log(JSON.parse(window.sessionStorage.getItem('person')).email)
+    getAll(JSON.parse(window.sessionStorage.getItem('person')).email)
+  }
+
 
   function UploadFile(){
     
@@ -88,7 +101,6 @@ export default function MainUser() {
 
   return <div className='container'>
       <NavBar />
-      <h1 className='text-center'>Welcome {person.email}</h1>
       <header className='text-center h1'>Uploaded Assignments</header>
       <div className='main text-center flex-wrap d-flex'>
         {assignments.map((ment)=>(

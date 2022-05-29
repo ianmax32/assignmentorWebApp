@@ -1,9 +1,8 @@
 .card_info{
-    width: max-content;
+    width:min-content;
     border-radius: 15%;
     border: 2rem black;
     border-color: black;
-    background-color: black;
     height: max-content;
     box-shadow: 0 0 10px  rgba(0,0,0,0.6);
     -moz-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
@@ -30,9 +29,14 @@
 .metadata{
     flex-direction:column;
     display: flex;
+    flex-wrap: wrap;
+    word-wrap: normal break-word initial inherit;
+    word-break: break-all;
 }
 
 .info{
     flex-direction: row;
     display: flex;
+    text-overflow: ellipsis;
+
 }
